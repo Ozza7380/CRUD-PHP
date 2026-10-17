@@ -28,14 +28,14 @@
             <?php foreach ($todos as $todo): ?>
                 <div class="flex items-cneter justify-between border-b p-3">
                     <div>
-                        <span class="<?= $todos['completed'] ? 'linne through text-gray-400': '' ?>">
+                        <span class="<?= $todo['completed'] ? 'line-through text-gray-400' : '' ?>">
                             <?= htmlspecialchars($todo['title']) ?>
                         </span>
                         <small class="text-gray-500 ml-2"><?= $todo['created_at'] ?></small>
                     </div>
                     <div class="flex gap-2">
-                        <a href="edit.php?id="<?= $todo['id'] ?> class="text-yellow-500">Edit</a>
-                        <a href="delete.php?id="<?= $todo['id'] ?>  class="text-red-500"
+                        <a href="edit.php?id=<?= $todo['id'] ?>" class="text-yellow-500">Edit</a>
+                        <a href="delete.php?id=<?= $todo['id'] ?>"  class="text-red-500"
                             onclick="return confirm('hapus')">Hapus</a>
                     </div>
                 </div>
