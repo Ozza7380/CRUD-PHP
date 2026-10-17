@@ -7,6 +7,6 @@ if ($id) {
     $stmt->execute([$id]);
     $_SESSION['message'] = 'Todo berhasil dihapus!';
 }
-header('Location index.php');
+header('Location: index.php');
 exit;
 ?>
