@@ -6,7 +6,7 @@ function isLoggedin() {
 function requireLogin() {
     if (!isLoggedin()) {
         $_SESSION['redirect_to'] = $_SERVER['REQUEST_URI'];
-        header('Location: /todos/login.php');
+        header('Location: /todos/index.php');
         exit;
     }
 }

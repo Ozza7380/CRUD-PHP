@@ -1,49 +1,55 @@
-<?php 
-require 'config.php';
+<?php
 require 'middleware.php';
-requireLogin();
+require 'config.php';
+guestOnly();
+
+$error = '';
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
+
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
+    $stmt->execute([$email]);
+    $user = $stmt->fetch();
+
+    if ($user && password_verify($password, $user['password'])) {
+        $_SESSION['user_id'] = $user['id'];
+        $_SESSION['user_name'] = $user['nama'];
+        header('Location: dashboard.php');
+        exit;
+    } else {
+        $error = 'Email atau Password salah';
+    }
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todos</title>
+    <title>Login</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 p-20">
+<body class="bg-gray-100 p-10">
+    <div class="max-w-md mx-auto bg-white p-6 rounded shadow">
+        <h1 class="text-2x1 font-bold mb-4">Login</h1>
 
-    <div class="max-w2x1 mx-auto bg-white p-6 rounded shadow">
-        <div class="flex justify-brteween items-center mb-4">
-            <h1 class="text-2x1 font-bold px-4">Todo list</h1>
-            <a href="create.php" class="bg-blue-500 text-white px-4 py-2 rounded">+ Tambah</a>
+    <?php if ($error): ?>
+        <div class="bg-red-100 p-3 rounded mb-4 text-red-700"><?= $error ?></div>
+    <?php endif; ?>
+
+    <form action="" method="post">
+        <div class="mb-3">
+                <label class="block font-medium">Email</label>
+                <input type="email" name="email" class="w-full border p-2 rounded" required>
         </div>
-
-        <?php if (isset($_SESSION['message'])): ?>
-            <div class="bg-green-100 p-3 rounded mb-4">
-                <? $_SESSION['message']; unset($_SESSION['message']); ?>
-            </div>
-            <?php endif; ?>
-
-            <?php
-            $todos = $pdo->query("SELECT * FROM todos ORDER BY id DESC")->fetchAll();
-            ?>
-
-            <?php foreach ($todos as $todo): ?>
-                <div class="flex items-cneter justify-between border-b p-3">
-                    <div>
-                        <span class="<?= $todo['completed'] ? 'line-through text-gray-400' : '' ?>">
-                            <?= htmlspecialchars($todo['title']) ?>
-                        </span>
-                        <small class="text-gray-500 ml-2"><?= $todo['created_at'] ?></small>
-                    </div>
-                    <div class="flex gap-2">
-                        <a href="edit.php?id=<?= $todo['id'] ?>" class="text-yellow-500">Edit</a>
-                        <a href="delete.php?id=<?= $todo['id'] ?>"  class="text-red-500"
-                            onclick="return confirm('hapus')">Hapus</a>
-                    </div>
-                </div>
-            <?php endforeach; ?>
+        <div class="mb-3">
+                <label class="block font-medium">Password</label>
+                <input type="password" name="password" class="w-full border p-2 rounded" required>
         </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 rounded w-full">Login</button>
+    </form>
+    </div>
 </body>
 </html>
