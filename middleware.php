@@ -6,14 +6,14 @@ function isLoggedin() {
 function requireLogin() {
     if (!isLoggedin()) {
         $_SESSION['redirect_to'] = $_SERVER['REQUEST_URI'];
-        header('Location: login.php');
+        header('Location: /todos/login.php');
         exit;
     }
 }
 
 function guestOnly() {
     if (isLoggedin()) {
-        header('Location: login.php');
+        header('Location: /todos/dashboard.php');
         exit;
     }
 }
