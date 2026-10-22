@@ -25,7 +25,7 @@ echo $confirm.'ini conf';
             $stmt = $pdo->prepare("INSERT INTO users (nama, email, password) VALUES(?, ?, ?)");
             $stmt->execute([$name,$email, $hashed]);
             $_SESSION['message'] = 'Register berhasil! Silahkan login';
-            header('Location: login.php');
+            header('Location: /login.php');
             exit;
         }
     }
@@ -65,7 +65,7 @@ echo $confirm.'ini conf';
             <button type="submit" class="bg-blue-500 text-white px-4 rounded w-full">Daftar</button>
         </form>
 
-        <p class="mt-3 text-center">Sudah punya akun? <a href="login.php" class="text-blue-500">Login</a></p>
+        <p class="mt-3 text-center">Sudah punya akun? <a href="/todos/login.php" class="text-blue-500">Login</a></p>
     </div>
 
 </body>
