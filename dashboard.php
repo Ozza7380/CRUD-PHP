@@ -20,5 +20,6 @@ requireLogin();
         </div>
     </div>
     <p>Selamat datang, <strong><?= htmlspecialchars($_SESSION['user_name']) ?></strong>!</p>
+    <button type="submit"><a href="/todos/index.php">Liat todos</a></button>
 </body>
 </html>
