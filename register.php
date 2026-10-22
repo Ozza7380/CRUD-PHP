@@ -1,5 +1,7 @@
 <?php
+require 'middleware.php';
 require 'config.php'; // include koneksi PDO + session_start()
+guestOnly();
 
 $error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
