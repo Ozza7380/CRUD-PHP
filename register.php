@@ -40,7 +40,7 @@ echo $confirm.'ini conf';
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <bod class="bg-gray-100 p-100">
-    <div class="max--md mx-auto bg-white p-6 rounded shadow">
+    <div class="max-md mx-auto bg-white p-6 rounded shadow">
         <?php if ($error): ?>
         <h1 class="text-2x1 font-bold mb-4 text-red-700"><?= $error ?></h1>
         <?php endif; ?>
