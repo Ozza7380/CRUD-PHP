@@ -1,5 +1,7 @@
 <?php
 require 'config.php';
+require 'middleware.php';
+requireLogin();
 
 $id =$_GET['id'] ?? null;
 if ($id) {

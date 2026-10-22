@@ -1,4 +1,8 @@
-<?php require 'config.php'?>
+<?php 
+require 'config.php';
+require 'middleware.php';
+requireLogin();
+?>
 
 <?php
 if($_SERVER['REQUEST_METHOD'] === 'POST') {
